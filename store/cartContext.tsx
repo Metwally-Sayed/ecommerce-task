@@ -2,7 +2,7 @@
 
 import { getProducts } from "@/lib/apis";
 import { ICartObject, IProduct } from "@/lib/types";
-import { createContext, useState, useEffect } from "react";
+import { createContext, useEffect, useState } from "react";
 
 interface CartContextType {
   cart: ICartObject[];
@@ -28,17 +28,25 @@ export function CartProvider({
 }): JSX.Element {
   const [cart, setCart] = useState<ICartObject[]>([]);
   const [products, setProducts] = useState<IProduct[]>([]); // State for products
+  const [mounted, setMounted] = useState(false);
 
+
+  // I KNOW ITS NOT THE BEST PRACTICE BUT IT MOUNT ONLY ONCE
   useEffect(() => {
-    (async () => {
-      try {
-        const productData = await getProducts();
-        setProducts(productData);
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  }, []);
+    if (mounted) {
+      const fetchProducts = async () => {
+        try {
+          const productData = await getProducts();
+          setProducts(productData);
+          setMounted(false);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      fetchProducts();
+    }
+    setMounted(true);
+  }, [mounted]);
 
   // THIS FUNCTION CAN BE USED TO ADD PRODUCT TO THE CART OR INCREASE THE QUANTITY IF THE PRODUCT IS ALREADY IN THE CART
   const addToCartHandler = (

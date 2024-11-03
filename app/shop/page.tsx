@@ -19,6 +19,10 @@ import { ChevronDownIcon, PlusIcon } from "@heroicons/react/20/solid";
 import { useQuery } from "@tanstack/react-query";
 
 export default function Shop(): JSX.Element {
+
+
+ //
+
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [category, setCategory] = useState<string>("");
 

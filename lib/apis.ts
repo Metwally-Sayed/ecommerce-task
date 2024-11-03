@@ -11,7 +11,7 @@ const axios = Axios.create({
 export const getProducts = async (category?: string, limit?: number) => {
   try {
     const { data: response } = await axios.get(
-      `/products${category ? `/category/${category}` : ""}?limit=${limit}`,
+      `/products${category ? `/category/${category}` : ""}?limit=${limit}&page=${2}`,
     );
     return response;
   } catch (error) {
