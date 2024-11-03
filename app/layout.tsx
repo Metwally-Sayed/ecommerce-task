@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import ReactQueryProvider from "@/utils/ReactQueryProvider";
+import Header from "@/components/ui/header";
+import { CartProvider } from "@/store/cartContext";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -28,7 +31,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <ReactQueryProvider>
+          <CartProvider>
+            <Header />
+            <main className="flex min-h-screen flex-col items-center bg-[#F2F0F1]">
+              {children}
+            </main>
+          </CartProvider>
+        </ReactQueryProvider>
       </body>
     </html>
   );

@@ -69,4 +69,17 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+  .input-no-arrows::-webkit-inner-spin-button,
+  .input-no-arrows::-webkit-outer-spin-button {
+    @apply appearance-none;
+    margin: 0;
+  }
+
+  .input-no-arrows {
+    @apply appearance-none;
+  }
+
+  .input-no-arrows {
+    -moz-appearance: textfield;
+  }
 }
