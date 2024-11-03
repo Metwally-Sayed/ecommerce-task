@@ -1,16 +1,16 @@
-import React, { useContext } from "react";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { CartContext } from "@/store/cartContext";
+import { ShoppingCart } from "lucide-react";
+import { useContext } from "react";
+import { Button } from "./button";
+import ProductCard from "./product-card";
 import {
   Sheet,
   SheetContent,
+  SheetFooter,
   SheetTitle,
   SheetTrigger,
-  SheetFooter,
 } from "./sheet";
-import { Button } from "./button";
-import { ShoppingCart } from "lucide-react";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { CartContext } from "@/store/cartContext";
-import ProductCard from "./product-card";
 
 type Props = {
   isSheetOpen: boolean;
@@ -48,7 +48,7 @@ const CartSheet = ({ isSheetOpen, setSheetOpen }: Props): JSX.Element => {
           YOUR CART
         </SheetTitle>
         <div className="z-50 flex w-full flex-col items-start justify-start text-white">
-          <ScrollArea className="mt-8 flex h-[650px] max-h-[650px] w-full flex-col rounded-lg bg-[#F2F0F1]">
+          <ScrollArea className="mt-8 flex h-[60vh] max-h-[90vh] w-full flex-col overflow-y-auto rounded-lg bg-[#F2F0F1]">
             {cart
               .flatMap((cartItem) => cartItem.products)
               .map((product) => (

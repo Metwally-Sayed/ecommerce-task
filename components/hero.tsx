@@ -1,7 +1,7 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Button } from "../components/ui/button";
 import SliderComponent from "./ui/brands-slider";
-import Link from "next/link";
 
 const Hero = () => {
   const images = [
@@ -26,7 +26,7 @@ const Hero = () => {
           </div>
           <div className="absolute top-[10%] z-0 flex flex-col py-10 pl-10 lg:top-[20%]">
             <h1 className="w-[317px] text-3xl font-bold lg:w-[517px] lg:text-6xl">
-              FIND CLOTES THAT MATC YOUR STYLE
+              FIND CLOTHES THAT MATCH YOUR STYLE
             </h1>
             <p className="text-md mt-4 w-[317px] lg:w-[517px]">
               Browse through our diverse range of meticulously crafted garments,
@@ -38,7 +38,7 @@ const Hero = () => {
                 <Button
                   size={"lg"}
                   title="Shop Now"
-                  className="mt-7 h-12 rounded-3xl bg-black px-20 py-7 text-white"
+                  className="mt-7 h-12 rounded-3xl bg-black px-20 py-7 text-lg font-extrabold text-white"
                 >
                   Shop Now
                 </Button>

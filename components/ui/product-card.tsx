@@ -1,11 +1,10 @@
+import { getProductById } from "@/lib/apis";
 import { IProduct, IRating } from "@/lib/types";
+import { X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { memo, useEffect, useState } from "react";
 import StarRating from "./StarRating";
-import { getProductById } from "@/lib/apis";
-import { useEffect, useState } from "react";
-import { X } from "lucide-react";
-import { memo } from "react";
 
 type Props = {
   id?: number;
@@ -55,14 +54,15 @@ const ProductCard = ({
       {size === "Default" && (
         <div
           key={id}
-          className="group relative mx-auto flex w-full flex-col justify-center"
+          className="group relative mx-auto flex w-full flex-col justify-start gap-1 overflow-hidden rounded-xl bg-white p-10 shadow-xl md:max-w-[300px] lg:max-w-[340px] xl:max-w-[400px]"
         >
-          <div className="mx-auto flex w-full flex-col items-center justify-center">
-            <div className="flex h-[300px] w-[300px] items-center justify-center overflow-hidden rounded-xl bg-white shadow-xl group-hover:opacity-75 lg:h-[250px] lg:w-[230px] xl:h-[300px] xl:w-[300px]">
+          <div className="flex w-full flex-col items-start justify-center">
+            <div className="-ml-10 flex h-[300px] w-[300px] items-center justify-center overflow-hidden rounded-xl bg-white group-hover:opacity-75 lg:h-[250px] lg:w-[230px] xl:h-[300px] xl:w-[300px]">
               {image && (
                 <Image
-                  width={150}
-                  height={150}
+                  className="-mr-12"
+                  width={200}
+                  height={200}
                   alt={image}
                   src={image}
                   quality={100}
@@ -71,10 +71,10 @@ const ProductCard = ({
               )}
             </div>
           </div>
-          <div className="ml-1 mt-4 flex w-[300px] flex-col justify-start gap-1 lg:w-[230px]">
+          <div className="mt-4 flex flex-col justify-start gap-1 2xl:w-[280px]">
             <h3 className="truncate text-[20px] font-semibold text-gray-700">
               <Link href={`/product/${id}`}>
-                <span aria-hidden="true" className="absolute inset-0" />
+                {/* <span aria-hidden="true" className="absolute inset-0" /> */}
                 {title}
               </Link>
             </h3>

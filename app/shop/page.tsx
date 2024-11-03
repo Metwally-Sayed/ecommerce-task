@@ -2,19 +2,21 @@
 
 import { SetStateAction, useEffect, useState } from "react";
 
-import { ChevronDownIcon, PlusIcon } from "@heroicons/react/20/solid";
-import { useQuery } from "@tanstack/react-query";
-import { getCategories, getProducts } from "@/lib/apis";
-import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
+import { SkeletonCard } from "@/components/ui/custom-skeleton";
 import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import ProductCard from "@/components/ui/product-card";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
+import { Skeleton } from "@/components/ui/skeleton";
+import { getCategories, getProducts } from "@/lib/apis";
 import { IProduct } from "@/lib/types";
 import {
   Disclosure,
   DisclosureButton,
   DisclosurePanel,
 } from "@headlessui/react";
+import { ChevronDownIcon, PlusIcon } from "@heroicons/react/20/solid";
+import { useQuery } from "@tanstack/react-query";
 
 export default function Shop(): JSX.Element {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
@@ -59,12 +61,11 @@ export default function Shop(): JSX.Element {
     }
   }, [category]);
 
-  if (productsLoading) return <div>Loading products...</div>;
   if (productsError)
     return <div>Error loading products: {productsError.message}</div>;
 
   return (
-    <div className="bg-white">
+    <div className="w-full bg-white">
       <div>
         {/* Mobile filter dialog */}
         <Sheet open={mobileFiltersOpen} onOpenChange={setMobileFiltersOpen}>
@@ -129,7 +130,7 @@ export default function Shop(): JSX.Element {
           </SheetContent>
         </Sheet>
 
-        <main className="mx-auto max-w-2xl px-4 lg:max-w-7xl lg:px-8">
+        <main className="mx-auto px-4 lg:px-8">
           <div className="border-b border-gray-200 pb-10 pt-24">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900">
               OUR SHOP
@@ -141,7 +142,6 @@ export default function Shop(): JSX.Element {
           <div className="pb-24 pt-12 lg:grid lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
             <aside>
               <h2 className="sr-only">Filters</h2>
-
               <button
                 type="button"
                 onClick={() => setMobileFiltersOpen(true)}
@@ -165,15 +165,19 @@ export default function Shop(): JSX.Element {
                       </legend>
                       <div className="space-y-3 pt-6">
                         <RadioGroup>
-                          <div className="mb-2 flex items-center space-x-2">
-                            <RadioGroupItem
-                              onClick={() => setCategory("")}
-                              value={""}
-                              id={""}
-                            />
-                            <Label className="text-md" htmlFor={""}>
-                              ALL
-                            </Label>
+                          <div className="mb-2 flex w-full items-center space-x-2">
+                            {!categoriesLoading && (
+                              <>
+                                <RadioGroupItem
+                                  onClick={() => setCategory("")}
+                                  value={""}
+                                  id={""}
+                                />
+                                <Label className="text-md" htmlFor={""}>
+                                  ALL
+                                </Label>
+                              </>
+                            )}
                           </div>
                           {!categoriesLoading &&
                             categories?.map((option: string) => (
@@ -191,6 +195,15 @@ export default function Shop(): JSX.Element {
                                 </Label>
                               </div>
                             ))}
+                          {categoriesLoading &&
+                            Array.from({ length: 5 }).map((_, index) => (
+                              <div
+                                className="mb-2 flex items-center space-x-2"
+                                key={index}
+                              >
+                                <Skeleton className="lx:w-[400px] h-2 lg:w-[250px]" />
+                              </div>
+                            ))}
                         </RadioGroup>
                       </div>
                     </fieldset>
@@ -199,12 +212,16 @@ export default function Shop(): JSX.Element {
               </div>
             </aside>
 
-            <section className="mt-6 lg:col-span-2 lg:mt-0 xl:col-span-3">
+            <section className="mt-6 min-h-screen rounded-xl bg-[#F2F0F1] lg:col-span-2 lg:mt-0 lg:p-10 xl:col-span-3">
               <h2 id="product-heading" className="sr-only">
                 Products
               </h2>
 
-              <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:gap-x-8 xl:grid-cols-3">
+              <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 md:grid-cols-2 lg:gap-x-8 xl:grid-cols-3 2xl:grid-cols-4">
+                {productsLoading &&
+                  Array.from({ length: 4 }).map((_, index) => (
+                    <SkeletonCard key={index} />
+                  ))}
                 {currentProducts?.map((product: IProduct) => (
                   <ProductCard
                     key={product.id}
