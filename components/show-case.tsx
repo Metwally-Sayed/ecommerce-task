@@ -12,11 +12,7 @@ type Props = {
 };
 
 const ShowCase = ({ title, fetchDataType }: Props) => {
-  const {
-    data: products,
-    isLoading,
-    error,
-  } = useQuery({
+  const { data: products, isLoading } = useQuery({
     queryKey: [fetchDataType],
     queryFn:
       fetchDataType === "latestproducts"

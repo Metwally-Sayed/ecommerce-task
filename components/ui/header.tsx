@@ -1,23 +1,16 @@
 "use client";
 import { useState } from "react";
 import {
-  Dialog,
-  DialogPanel,
-  Disclosure,
-  DisclosureButton,
-  DisclosurePanel,
   Popover,
   PopoverButton,
   PopoverGroup,
   PopoverPanel,
 } from "@headlessui/react";
 import {
-  Bars3Icon,
   ChartPieIcon,
   CursorArrowRaysIcon,
   FingerPrintIcon,
   SquaresPlusIcon,
-  XMarkIcon,
 } from "@heroicons/react/24/outline";
 import {
   ChevronDownIcon,
@@ -63,7 +56,6 @@ const callsToAction = [
 
 export default function Header(): JSX.Element {
   const [isSheetOpen, setSheetOpen] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <header className="relative isolate z-10 flex h-24 w-full flex-row items-center justify-between bg-white shadow-xl">

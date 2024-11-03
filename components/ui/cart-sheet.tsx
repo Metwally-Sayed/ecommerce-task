@@ -27,8 +27,6 @@ const CartSheet = ({ isSheetOpen, setSheetOpen }: Props): JSX.Element => {
 
   const totalPrice = getTotalCartValueHandler();
 
-  console.log(totalPrice);
-
   const quantity = getCartItemsQuantityHandler();
   return (
     <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>

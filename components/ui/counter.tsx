@@ -2,7 +2,7 @@
 import { cn } from "@/lib/utils";
 import NumberFlow from "@number-flow/react";
 import { Minus, Plus } from "lucide-react";
-import React, { useState } from "react";
+import React from "react";
 
 type Props = {
   value?: number;

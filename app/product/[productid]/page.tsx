@@ -2,7 +2,7 @@
 
 import { useParams } from "next/navigation";
 import { Fragment, useEffect, useState, useContext } from "react";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 import { getProductById, addProductToCart } from "@/lib/apis";
 
@@ -14,7 +14,6 @@ import { SkeletonComments } from "@/components/ui/custom-skeleton";
 import StarRating from "@/components/ui/StarRating";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/counter";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 import Image from "next/image";
 
 import { AiOutlineLoading } from "react-icons/ai";
@@ -42,36 +41,26 @@ const faqs = [
 //getProductById
 const ProductPage = (): JSX.Element => {
   const { productid } = useParams<{ productid: string }>();
-  const { addToCartStore, cart } = useContext(CartContext);
-  const queryClient = useQueryClient();
+  const { addToCartStore } = useContext(CartContext);
   const [quantity, setQuantity] = useState(1);
   const [productToCart, setProductToCart] = useState<ICartObject>(
     {} as ICartObject,
   );
   const [isAdded, setIsAdded] = useState<boolean>(false);
 
-  const {
-    data: productData,
-    isLoading,
-    error,
-  } = useQuery({
+  const { data: productData, isLoading } = useQuery({
     queryKey: ["productid"],
     queryFn: () => getProductById(+productid),
   });
 
-  const {
-    mutateAsync: addToCart,
-    isPending,
-    error: cartError,
-    isSuccess,
-  } = useMutation({
+  const { mutateAsync: addToCart, isPending } = useMutation({
     mutationFn: () => addProductToCart(productToCart),
   });
 
   useEffect(() => {
     (async () => {
       if (isAdded) {
-        console.log("Added to cart");
+        console.log("Addd to cart");
         try {
           await addToCart();
           addToCartStore(productToCart, +productid as number, quantity);
@@ -97,8 +86,6 @@ const ProductPage = (): JSX.Element => {
     });
     setIsAdded(true);
   };
-
-  console.log(cart, "cart");
 
   return (
     <div>
